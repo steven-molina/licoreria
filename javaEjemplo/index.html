@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function validateForm() {
+            // Obtener referencias a los elementos del formulario
+            var firstName = document.forms["frm1"]["fname"].value;
+            var lastName = document.forms["frm1"]["lname"].value;
+            var email = document.forms["frm1"]["email"].value;
+            var age = parseInt(document.forms["frm1"]["age"].value);
+            var gender = document.forms["frm1"]["gender"].value;
+
+            // Verificar que todos los campos estén completos
+            if (firstName === "" || lastName === "" || email === "" || isNaN(age) || gender === "") {
+                alert("Todos los campos son obligatorios");
+                return false;
+            }
+
+            // Verificar que first name y last name no contengan números
+            if (/[\d]/.test(firstName) || /[\d]/.test(lastName)) {
+                alert("First name y last name no deben contener números");
+                return false;
+            }
+
+            // Validar el campo email
+            if (!isValidEmail(email)) {
+                alert("El campo de correo electrónico no es válido");
+                return false;
+            }
+
+            // Verificar que age esté entre 18 y 90 años
+            if (age < 18 || age > 90) {
+                alert("El campo de edad debe estar entre 18 y 90 años");
+                return false;
+            }
+
+            // Verificar que gender sea "Femenino" o "Masculino"
+            if (gender !== "Femenino" && gender !== "Masculino") {
+                alert("El campo de género debe ser 'Femenino' o 'Masculino'");
+                return false;
+            }
+        }
+
+        function isValidEmail(email) {
+            // Expresión regular para validar un correo electrónico simple
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</head>
+<body>
+
+<h2>JavaScript HTML DOM</h2>
+<p>Finding HTML Elements Using <b>document.forms</b>.</p>
+
+<form id="frm1" action="/action_page.php" onsubmit="return validateForm()">
+    First name: <input type="text" name="fname" value="Donald"><br>
+    Last name: <input type="text" name="lname" value="Duck"><br>
+    Mail: <input type="text" name="email" value="donald@duck.com"><br>
+    Age: <input type="text" name="age" value="25"><br>
+    Gender: <input type="text" name="gender" value="Masculino"><br>
+    <input type="submit" value="Submit">
+</form> 
+
+<p>These are the values of each element in the form:</p>
+<p id="demo"></p>
+
+</body>
+</html>
